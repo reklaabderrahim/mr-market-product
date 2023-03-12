@@ -1,0 +1,338 @@
+openapi: 3.0.3
+info:
+  description: >
+    API for Product
+    Cette API permet de :
+      - Create products
+      - find product by uuid
+  version: 1.0.7
+  title: Product API
+
+  x-logo:
+    url: /redoc/logo.png
+    backgroundColor: "#FFFFFF"
+tags:
+  - name: Products
+    description: API de gestion des produits
+servers:
+  - url: http://api.market.dz/product/api/v1
+paths:
+  /products:
+    post:
+      tags:
+        - apiProduct
+      operationId: productCreate
+      summary: create product
+      description: "Create a product"
+      deprecated: false
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  productIdentifier:
+                    description: "identifier of created product"
+                    type: string
+                    format: uuid
+        "400":
+          description: >
+            Bad Request
+
+            List of supported error codes:
+            - 20: Invalid URL parameter value
+            - 21: Missing body
+            - 22: Invalid body
+            - 23: Missing body field
+            - 24: Invalid body field
+            - 25: Missing header
+            - 26: Invalid header value
+            - 27: Missing query-string parameter
+            - 28: Invalid query-string parameter value
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - apiProduct
+      operationId: productUpdate
+      summary: update product
+      description: "Update a product"
+      deprecated: false
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  productIdentifier:
+                    description: "identifier of updated product"
+                    type: string
+                    format: uuid
+        "400":
+          description: >
+            Bad Request
+
+            List of supported error codes:
+            - 20: Invalid URL parameter value
+            - 21: Missing body
+            - 22: Invalid body
+            - 23: Missing body field
+            - 24: Invalid body field
+            - 25: Missing header
+            - 26: Invalid header value
+            - 27: Missing query-string parameter
+            - 28: Invalid query-string parameter value
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - apiProduct
+      operationId: findProducts
+      summary: find products
+      description: "find products"
+      deprecated: false
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json;charset=utf-8:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Product"
+        "400":
+          description: >
+            Bad Request
+
+            List of supported error codes:
+            - 20: Invalid URL parameter value
+            - 21: Missing body
+            - 22: Invalid body
+            - 23: Missing body field
+            - 24: Invalid body field
+            - 25: Missing header
+            - 26: Invalid header value
+            - 27: Missing query-string parameter
+            - 28: Invalid query-string parameter value
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /products/{productUuid}:
+    get:
+      tags:
+        - apiProduct
+      operationId: findProductByUuid
+      summary: find product by uuid
+      description: "find product by uuid"
+      deprecated: false
+      parameters:
+        - name: productUuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: >
+            Bad Request
+
+            List of supported error codes:
+            - 20: Invalid URL parameter value
+            - 21: Missing body
+            - 22: Invalid body
+            - 23: Missing body field
+            - 24: Invalid body field
+            - 25: Missing header
+            - 26: Invalid header value
+            - 27: Missing query-string parameter
+            - 28: Invalid query-string parameter value
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - apiProduct
+      operationId: deleteProductByUuid
+      summary: delete product
+      description: "delete product"
+      deprecated: false
+      parameters:
+        - name: productUuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  productIdentifier:
+                    description: "identifier of deleted product"
+                    type: string
+                    format: uuid
+        "400":
+          description: >
+            Bad Request
+
+            List of supported error codes:
+            - 20: Invalid URL parameter value
+            - 21: Missing body
+            - 22: Invalid body
+            - 23: Missing body field
+            - 24: Invalid body field
+            - 25: Missing header
+            - 26: Invalid header value
+            - 27: Missing query-string parameter
+            - 28: Invalid query-string parameter value
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /products/search:
+    post:
+      tags:
+        - searchProducts
+      operationId: searchProducts
+      summary: search products
+      description: "search products"
+      deprecated: false
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: "#/components/schemas/ProductSearchCriteria"
+        required: false
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/ProductSearchResponse"
+        "400":
+          description: >
+            Bad Request
+
+            List of supported error codes:
+            - 20: Invalid URL parameter value
+            - 21: Missing body
+            - 22: Invalid body
+            - 23: Missing body field
+            - 24: Invalid body field
+            - 25: Missing header
+            - 26: Invalid header value
+            - 27: Missing query-string parameter
+            - 28: Invalid query-string parameter value
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Product:
+      description: Product object
+      type: object
+      required:
+        - productNumber
+        - description
+      properties:
+        uuid:
+          description: "uuid"
+          type: string
+          maxLength: 255
+        productNumber:
+          description: "product number"
+          type: string
+          maxLength: 50
+        description:
+          description: "description"
+          type: string
+          maxLength: 255
+
+    ProductSearchResponse:
+      description: 'wrapper de l''opération "Search" contenant la liste des products d''une page en cours + le nombre total de clients'
+      required:
+        - products
+        - totalCount
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        totalCount:
+          description: 'Customers total number'
+          type: integer
+          format: int64
+
+    ProductSearchCriteria:
+      description: ''
+      type: object
+      properties:
+        productNumber:
+          description: 'product identifier'
+          type: string
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        sort:
+          type: string
+
+    Pagination:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+
+    Error:
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          description: "Error code"
+          type: integer
+          format: int32
+        message:
+          description: "Error description"
+          type: string
+        description:
+          description: "Long description"
+          type: string
