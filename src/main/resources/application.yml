@@ -3,7 +3,7 @@ spring:
     name: product
   data:
     mongodb:
-      uri: mongodb://user:password@localhost:27017/products
+      uri: mongodb://user:password@192.168.1.12:27017/products?authSource=admin
       database: products
   cloud:
     config:
@@ -21,7 +21,7 @@ springdoc:
 
 management:
   server:
-    port: 9093
+    port: 9092
   endpoint:
     health:
       show-details: always
