@@ -1,11 +1,11 @@
 package fr.mr_market.mr_product.document;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
